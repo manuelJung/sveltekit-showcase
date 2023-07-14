@@ -1,5 +1,6 @@
 import FormInputFlowbite from './components/FormInputFlowbite.svelte'
 
+
 /** 
  * Components that should be added to the initial bundle (because it is very
  * small or used everywhere) can be directly imported
@@ -45,4 +46,9 @@ export function loadComponent (name:string):Promise<ConstructorOfATypedSvelteCom
    * now we "execute" the promise so the calling-function can await it
    */
   return promise
+}
+
+export async function preloadForm (form:{comp:string, preload:boolean}[]) {
+  // await Promise.all(form.filter(row => row.preload).map(({comp}) => loadComponent(comp)))
+  await Promise.all(form.map(({comp}) => loadComponent(comp)))
 }
